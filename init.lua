@@ -17,3 +17,5 @@ end
 
 require "lazy_setup"
 require "keymaps"
+require "options"
+require "commands"

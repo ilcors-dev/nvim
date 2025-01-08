@@ -53,6 +53,7 @@ return {
         "jsonls", -- JSON
         "yamlls", -- YAML
         "ts_ls", -- TypeScript/JavaScript
+        "volar", -- Vue
         "gopls", -- Go
         "rust_analyzer", -- Rust
         "pyright", -- Python
@@ -77,6 +78,17 @@ return {
           capabilities = lsp_capabilities,
         }
       end,
+    }
+    -- Add diagnostic configuration here
+    vim.diagnostic.config {
+      virtual_text = {
+        prefix = "●", -- Choose a prefix
+        spacing = 4,
+      },
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
     }
   end,
 }

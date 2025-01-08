@@ -1,5 +1,6 @@
 return {
   "kdheepak/lazygit.nvim",
+  -- event = "VeryLazy",
   cmd = {
     "LazyGit",
     "LazyGitConfig",
@@ -13,7 +14,12 @@ return {
   },
   -- setting the keybinding for LazyGit with 'keys' is recommended in
   -- order to load the plugin when the command is run for the first time
-  keys = {
-    { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open lazy git" },
-  },
+  config = function()
+    local wk = require "which-key"
+
+    wk.add {
+      { "<leader>gg", group = "Git" },
+      { "<leader>alg", "<cmd>LazyGit<cr>", desc = "Open lazy git" },
+    }
+  end,
 }
