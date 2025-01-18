@@ -30,7 +30,9 @@ return {
       opts = {
         ensure_installed = {
           "stylua",
-          -- add more arguments for adding more null-ls sources
+          "php-cs-fixer", -- PHP formatter
+          "prettier", -- Prettier for JavaScript/TypeScript
+          "eslint_d", -- ESLint for linting
         },
       },
     },
@@ -61,6 +63,7 @@ return {
         "bashls",
         "cssls",
         "html",
+        "zls", -- Zig
       },
       automatic_installation = true,
     }
@@ -78,7 +81,51 @@ return {
           capabilities = lsp_capabilities,
         }
       end,
+      ["zls"] = function()
+        lspconfig.zls.setup {
+          on_attach = lsp_attach,
+          capabilities = lsp_capabilities,
+        }
+      end,
     }
+
+    lspconfig.rust_analyzer.setup {
+      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      on_attach = function(client, bufnr) 
+        local opts = { noremap=true, silent=true, buffer=bufnr }
+
+        vim.lsp.inlay_hint.enable(true)
+
+        if client.server_capabilities.documentFormattingProvider then
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
+          })
+        end
+      end,
+      settings = {
+        ["rust-analyzer"] = {
+          assist = {
+            importGranularity = "module",
+            importPrefix = "by_self",
+          },
+          cargo = {
+            allFeatures = true,
+            loadOutDirsFromCheck = true,
+          },
+          procMacro = {
+            enable = true,
+          },
+          checkOnSave = {
+            command = "clippy",
+            allFeatures = true,
+          },
+        },
+      },
+    }
+
     -- Add diagnostic configuration here
     vim.diagnostic.config {
       virtual_text = {

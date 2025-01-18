@@ -21,5 +21,28 @@ wk.add {
   { "<leader>a", group = "Actions" }, -- Top-level group
   { "<leader>ah", group = "HTML" }, -- Subgroup for HTML
   { "<leader>aho", "<cmd>lua OpenHtmlPreview()<CR>", desc = "Open in Browser" },
-  {},
+  { "<leader>as", group = "Current File" },
+  { "<leader>ash", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Show Signature Help" }, -- Trigger LSP Signature Help
+  {
+    "<leader>asi",
+    "<cmd>lua vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } } })<CR>",
+    desc = "Organize Imports (Remove Unused and Sort)",
+  }, -- Organize Imports command
+  {
+    "<leader>ad",
+    function()
+      local float_wins = vim.api.nvim_list_wins()
+      for _, win in ipairs(float_wins) do
+        local config = vim.api.nvim_win_get_config(win)
+        if config.relative ~= "" then
+          -- Close existing floating diagnostic popup
+          vim.api.nvim_win_close(win, true)
+          return
+        end
+      end
+      -- Open the diagnostic popup if none are active
+      vim.diagnostic.open_float()
+    end,
+    desc = "Toggle Diagnostics Popup",
+  },
 }

@@ -14,6 +14,8 @@ return {
     "hrsh7th/cmp-path",
     -- https://github.com/hrsh7th/cmp-cmdline
     "hrsh7th/cmp-cmdline",
+
+    "tailwind-tools",
   },
   config = function()
     local cmp = require "cmp"
