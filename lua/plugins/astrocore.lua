@@ -28,8 +28,9 @@ return {
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
-        signcolumn = "yes", -- sets vim.opt.signcolumn to yes
+        signcolumn = "no", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        foldcolumn = "0", -- sets vim.opt.foldcolumn to auto
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
