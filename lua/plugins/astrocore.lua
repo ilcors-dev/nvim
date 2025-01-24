@@ -28,7 +28,7 @@ return {
         relativenumber = true, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
-        signcolumn = "no", -- sets vim.opt.signcolumn to yes
+        signcolumn = "auto", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
         foldcolumn = "0", -- sets vim.opt.foldcolumn to auto
       },
